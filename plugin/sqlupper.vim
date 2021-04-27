@@ -157,9 +157,32 @@ function! s:upper(k)
   endif
 endfunction
 
+function! Do_Parenthese()
+  let s:cur_line = line('.')
+  let s:cur_col = col('.')
+  let s:index_col = s:cur_col - 2
+  let s:cur_char = getline('.')[s:cur_col]
+  let s:word = ''
+
+  while getline(s:cur_line)[s:index_col] == ' '
+    let s:index_col -= 1
+  endwhile
+
+  while s:index_col > 0 && getline(s:cur_line)[s:index_col] != ' '
+    let s:word = getline(s:cur_line)[s:index_col].s:word
+    let s:index_col -= 1
+  endwhile
+  if index(s:keywords, s:word) >= 0
+    return "()\<esc>hhbgUwef)i"
+  else
+    return "()\<left>"
+  endif
+endfunction
+
 function! s:init()
   " Override mapping to close parens automatically (a litle bit of hacking)
-  inoremap <buffer> ( ()hhbgUwelli
+  inoremap <expr><buffer> ( Do_Parenthese()
+
   for k in s:keywords
     let k1 = k.','
     exec "iabbrev <expr> <buffer> " . k . " <SID>upper('" . k . "')"

@@ -1,0 +1,3 @@
+CREATE TABLE book (
+  title VARCHAR(255) NOT NULL,
+)
