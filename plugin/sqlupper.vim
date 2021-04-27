@@ -161,11 +161,9 @@ function! s:init()
   " Override mapping to close parens automatically (a litle bit of hacking)
   inoremap <buffer> ( ()hhbgUwelli
   for k in s:keywords
-    let k2 = k.','
-    let k3 = k.' '
+    let k1 = k.','
     exec "iabbrev <expr> <buffer> " . k . " <SID>upper('" . k . "')"
-    exec "iabbrev <expr> <buffer> " . k2 . " <SID>upper('" . k2 . "')"
-    exec "iabbrev <expr> <buffer> " . k3 . " <SID>upper('" . k3 . "')"
+    exec "iabbrev <expr> <buffer> " . k1 . " <SID>upper('" . k1 . "')"
   endfor
 endfunction
 
